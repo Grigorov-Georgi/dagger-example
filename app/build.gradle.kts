@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 repositories {
@@ -21,6 +22,14 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    implementation("com.google.dagger:dagger:2.58")
+}
+
+spotless {
+    java {
+        googleJavaFormat("1.33.0")
+    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -32,5 +41,5 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.App"
+    mainClass = "org.example.CommandLineAtm"
 }
