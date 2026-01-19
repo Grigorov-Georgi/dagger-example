@@ -18,6 +18,10 @@ interface Command {
     static Result invalid() {
       return new Result(Status.INVALID);
     }
+
+    Status status() {
+      return status;
+    }
   }
 
   enum Status {
