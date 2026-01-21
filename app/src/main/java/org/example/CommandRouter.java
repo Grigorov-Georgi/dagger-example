@@ -1,14 +1,21 @@
 package org.example;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 import org.example.Command.Result;
 import org.example.Command.Status;
 
 public class CommandRouter {
-  private final Map<String, Command> commands = Collections.emptyMap();
+  private final Map<String, Command> commands;
+  private final Outputter outputter;
+
+  @Inject
+  CommandRouter(Map<String, Command> commands, Outputter outputter) {
+    this.commands = commands;
+    this.outputter = outputter;
+  }
 
   Result route(String input) {
     List<String> splitInput = split(input);
@@ -28,7 +35,7 @@ public class CommandRouter {
   }
 
   private Result invalidCommand(String input) {
-    System.out.println(String.format("couldn't understand \"%s\". Please try again.", input));
+    outputter.output(String.format("couldn't understand \"%s\". Please try again.", input));
     return Result.invalid();
   }
 
